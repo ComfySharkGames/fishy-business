@@ -1,0 +1,168 @@
+extends Node2D
+
+@onready var background = $background
+@onready var alert_img = $alert_img
+@onready var engine = $engine
+@onready var sid = $sid
+@onready var left_pole = $left_pole
+@onready var right_pole = $right_pole
+@onready var key_container = $key_container
+@onready var progress_bar = $ProgressBar
+@onready var game_timer = $ProgressBar/game_timer
+@onready var catch_window = $catch_window
+@onready var success_timer = $success_timer
+@onready var catch_sound = $catch_sound
+@onready var key_hit_sound = $key_hit_sound
+@onready var get_fish_sound = $get_fish_sound
+@onready var waiting_sound = $waiting_sound
+@onready var failure_timer = $failure_timer
+@onready var break_sound = $break_sound
+
+const DOWN_ARROW = preload("res://Scenes/arrow_keys/down_arrow.tscn")
+const LEFT_ARROW = preload("res://Scenes/arrow_keys/left_arrow.tscn")
+const RIGHT_ARROW = preload("res://Scenes/arrow_keys/right_arrow.tscn")
+const UP_ARROW = preload("res://Scenes/arrow_keys/up_arrow.tscn")
+
+var key_amount: int = 2
+
+var wait_count: int = 0
+var catching: bool = false
+var success: bool = false
+var key_array: Array[int] = []
+var pressed_array: Array[int] = []
+var key_list_node: HBoxContainer
+
+func _ready():
+	background.play("default")
+	engine.play("default")
+	left_pole.play("fishing")
+	right_pole.play("fishing")
+	alert_img.play("waiting")
+	pass
+
+func _input(event):
+	pass
+
+func _process(delta):
+	if(!catching):
+		if(wait_count >= 1):
+			trigger_bite()
+			progress_bar.visible = true
+			game_timer.start()
+			catching = true
+	else:
+		if(!success):
+			check_keypress()
+
+func _on_alert_img_animation_looped():
+	if(alert_img.animation == &"waiting"):
+		wait_count = wait_count + 1
+	pass
+	
+func trigger_bite():
+	alert_img.play("bite_alert")
+	left_pole.play("catching")
+	right_pole.play("catching")
+	catch_sound.play()
+	
+	#generate key list
+	key_amount = 2 + Global.round
+	var random = RandomNumberGenerator.new()
+	key_list_node = get_node("key_container")
+	random.randomize()
+	for i in key_amount:
+		var tmp = random.randi_range(1,4)
+		key_array.append(tmp)
+		match tmp:
+			1:
+				var left_temp = LEFT_ARROW.instantiate()
+				key_list_node.add_child(left_temp)
+			2:
+				var up_temp = UP_ARROW.instantiate()
+				key_list_node.add_child(up_temp)
+			3:
+				var down_temp = DOWN_ARROW.instantiate()
+				key_list_node.add_child(down_temp)
+			4:
+				var right_temp = RIGHT_ARROW.instantiate()
+				key_list_node.add_child(right_temp)
+	
+func check_keypress():
+	if(key_array.is_empty()):
+		success = true
+		succeed_event()
+	
+	if(Input.is_anything_pressed()):
+		if(Input.is_action_just_pressed("left")):
+			if(key_array[0] == 1):
+				key_array.pop_front()
+				key_list_node.get_child(0).queue_free()
+				key_hit_sound.play()
+			else:
+				fail_event()
+				#fail out
+			
+		if(Input.is_action_just_pressed("up")):
+			if(key_array[0] == 2):
+				key_array.pop_front()
+				key_list_node.get_child(0).queue_free()
+				key_hit_sound.play()
+			else:
+				fail_event()
+				#fail out
+			
+		if(Input.is_action_just_pressed("down")):
+			if(key_array[0] == 3):
+				key_array.pop_front()
+				key_list_node.get_child(0).queue_free()
+				key_hit_sound.play()
+			else:
+				fail_event()
+				#fail out
+			
+		if(Input.is_action_just_pressed("right")):
+			if(key_array[0] == 4):
+				key_array.pop_front()
+				key_list_node.get_child(0).queue_free()
+				key_hit_sound.play()
+			else:
+				fail_event()
+				#fail out
+			
+func fail_event():
+	key_container.visible = false
+	progress_bar.visible = false
+	game_timer.stop()
+	break_sound.play()
+	alert_img.play("break_sad")
+	left_pole.play("snapping")
+	right_pole.play("snapping")
+	failure_timer.start()
+
+func succeed_event():
+	get_fish_sound.play()
+	Global.score += 1
+	catch_window.visible = true
+	left_pole.play("idle")
+	right_pole.play("idle")
+	alert_img.play("idle")
+	game_timer.stop()
+	progress_bar.visible = false
+	success_timer.start()
+	pass
+
+func _on_timer_timeout():
+	progress_bar.value -= 1
+	if(progress_bar.value == 0):
+		game_timer.stop()
+		fail_event()
+	
+
+func _on_success_timer_timeout():
+	SignalBus.progress_scene.emit(4)
+	pass # Replace with function body.
+
+
+func _on_failure_timer_timeout():
+	SignalBus.gameover_scene.emit()
+	pass # Replace with function body.

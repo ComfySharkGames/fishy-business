@@ -1,0 +1,90 @@
+[gd_scene load_steps=22 format=3 uid="uid://2e1io5t5quom"]
+
+[ext_resource type="Texture2D" uid="uid://csffwqmpbitsy" path="res://Art/Scenes/splash/splash.png" id="1_2g3vp"]
+[ext_resource type="Script" path="res://Scenes/fishing/starting.gd" id="1_12fel"]
+[ext_resource type="Texture2D" uid="uid://dbomvg45l0dq4" path="res://Art/UI/options_up.png" id="2_xc5l3"]
+[ext_resource type="Texture2D" uid="uid://dn2anrn6hm7fd" path="res://Art/UI/options_down.png" id="3_wc5on"]
+[ext_resource type="Texture2D" uid="uid://dqivfxeyhm1o7" path="res://Art/UI/start_up.png" id="4_w4nhq"]
+[ext_resource type="Texture2D" uid="uid://by8yju78supyc" path="res://Art/UI/start_down.png" id="5_l65m3"]
+[ext_resource type="Texture2D" uid="uid://0xqciuun0uux" path="res://Art/UI/howtoplay_up.png" id="6_a7ulj"]
+[ext_resource type="Texture2D" uid="uid://bu8umpvg72ppr" path="res://Art/UI/howtoplay_down.png" id="7_mwg58"]
+[ext_resource type="AudioStream" uid="uid://bq3cyf0al626c" path="res://Scenes/fishing/sfx/select.wav" id="9_5bqnk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ppvmm"]
+texture = ExtResource("2_xc5l3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_086pp"]
+texture = ExtResource("3_wc5on")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4a0we"]
+texture = ExtResource("3_wc5on")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nu5m6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mxl88"]
+texture = ExtResource("4_w4nhq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s30ai"]
+texture = ExtResource("5_l65m3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rfp2k"]
+texture = ExtResource("5_l65m3")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_670ur"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7q8go"]
+texture = ExtResource("6_a7ulj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1rlpo"]
+texture = ExtResource("7_mwg58")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l7eqs"]
+texture = ExtResource("7_mwg58")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5vxsw"]
+
+[node name="Starting" type="Node2D"]
+script = ExtResource("1_12fel")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_2g3vp")
+
+[node name="option_btn" type="Button" parent="."]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 64.0
+offset_bottom = 48.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_ppvmm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_086pp")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4a0we")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nu5m6")
+
+[node name="start_btn" type="Button" parent="."]
+offset_top = 32.0
+offset_right = 32.0
+offset_bottom = 48.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_mxl88")
+theme_override_styles/hover = SubResource("StyleBoxTexture_s30ai")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rfp2k")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_670ur")
+
+[node name="howtoplay_btn" type="Button" parent="."]
+offset_top = 48.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_7q8go")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1rlpo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l7eqs")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5vxsw")
+
+[node name="select_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_5bqnk")
+
+[connection signal="button_down" from="option_btn" to="." method="_on_option_btn_button_down"]
+[connection signal="button_up" from="option_btn" to="." method="_on_option_btn_button_up"]
+[connection signal="button_down" from="start_btn" to="." method="_on_start_btn_button_down"]
+[connection signal="button_up" from="start_btn" to="." method="_on_start_btn_button_up"]
+[connection signal="button_down" from="howtoplay_btn" to="." method="_on_howtoplay_btn_button_down"]
+[connection signal="button_up" from="howtoplay_btn" to="." method="_on_howtoplay_btn_button_up"]

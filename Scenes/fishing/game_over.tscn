@@ -1,0 +1,59 @@
+[gd_scene load_steps=12 format=3 uid="uid://cp7dvxcg5l23x"]
+
+[ext_resource type="Script" path="res://Scenes/fishing/game_over.gd" id="1_lsla7"]
+[ext_resource type="Texture2D" uid="uid://ddauyfbbtcewf" path="res://Art/Scenes/gameover/gameover.png" id="1_u4ac7"]
+[ext_resource type="FontFile" uid="uid://cqlcvp6hx1bcu" path="res://Art/UI/soggy-fishing.ttf" id="2_mhwbh"]
+[ext_resource type="AudioStream" uid="uid://p0ep554citwd" path="res://Scenes/fishing/sfx/gameover.wav" id="4_2ttk1"]
+[ext_resource type="Texture2D" uid="uid://b3yugv8fgy2ho" path="res://Art/UI/mainmenu_up.png" id="5_3tmty"]
+[ext_resource type="Texture2D" uid="uid://b8lyrvlwiftld" path="res://Art/UI/mainmenu_down.png" id="6_q8sww"]
+[ext_resource type="AudioStream" uid="uid://bq3cyf0al626c" path="res://Scenes/fishing/sfx/select.wav" id="7_7n2cu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a3lnm"]
+font = ExtResource("2_mhwbh")
+font_size = 8
+font_color = Color(0.811765, 0.882353, 0.72549, 1)
+outline_color = Color(0.443137, 0.513726, 0.333333, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_270j3"]
+texture = ExtResource("5_3tmty")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hctsk"]
+texture = ExtResource("6_q8sww")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3gqxk"]
+
+[node name="gameover" type="Node2D"]
+script = ExtResource("1_lsla7")
+
+[node name="gameover_screen" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_u4ac7")
+
+[node name="score_label" type="Label" parent="gameover_screen"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 35.0
+offset_right = 52.0
+offset_bottom = 45.0
+text = "565"
+label_settings = SubResource("LabelSettings_a3lnm")
+horizontal_alignment = 1
+
+[node name="gameover_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_2ttk1")
+volume_db = 5.0
+
+[node name="mainmenu_btn" type="Button" parent="."]
+offset_top = 48.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_270j3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hctsk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3gqxk")
+
+[node name="select_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_7n2cu")
+
+[connection signal="button_down" from="mainmenu_btn" to="." method="_on_mainmenu_btn_button_down"]
+[connection signal="button_up" from="mainmenu_btn" to="." method="_on_mainmenu_btn_button_up"]

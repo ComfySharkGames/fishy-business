@@ -1,0 +1,186 @@
+[gd_scene load_steps=18 format=3 uid="uid://5g3fc3bqbp2i"]
+
+[ext_resource type="Texture2D" uid="uid://dpkinqig1u1cm" path="res://Art/Scenes/cleaning/cleaning.png" id="1_f5lkx"]
+[ext_resource type="Texture2D" uid="uid://2qkkahrehvuj" path="res://Art/Scenes/boat/boat_scene_sheet.png" id="2_fjci6"]
+[ext_resource type="Texture2D" uid="uid://cno2xllaouhnv" path="res://Art/Items/catchables.png" id="3_vq26d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85rdp"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7p1d0"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uh7j"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p13v7"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sk1y7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85rdp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7p1d0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3uh7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p13v7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qqyo"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exohe"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdt1m"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clltv"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opjpy"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vpjid"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qqyo")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exohe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdt1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clltv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opjpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clltv")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lpv7"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3f8m"]
+atlas = ExtResource("1_f5lkx")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tmub5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lpv7")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lpv7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3f8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3f8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3f8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3f8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lpv7")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="cleaning" type="Node2D"]
+
+[node name="cleaning_screen" type="AnimatedSprite2D" parent="."]
+position = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_sk1y7")
+
+[node name="objects" type="Node2D" parent="cleaning_screen"]
+
+[node name="dock" type="Sprite2D" parent="cleaning_screen/objects"]
+texture = ExtResource("1_f5lkx")
+hframes = 5
+vframes = 7
+frame = 5
+
+[node name="table" type="Sprite2D" parent="cleaning_screen/objects"]
+texture = ExtResource("1_f5lkx")
+hframes = 5
+vframes = 7
+frame = 10
+
+[node name="sink" type="AnimatedSprite2D" parent="cleaning_screen/objects"]
+sprite_frames = SubResource("SpriteFrames_vpjid")
+
+[node name="cooler" type="Sprite2D" parent="cleaning_screen/objects"]
+texture = ExtResource("1_f5lkx")
+hframes = 5
+vframes = 7
+frame = 20
+
+[node name="wheelbarrow" type="Sprite2D" parent="cleaning_screen/objects"]
+texture = ExtResource("1_f5lkx")
+hframes = 5
+vframes = 7
+frame = 30
+
+[node name="sid" type="Sprite2D" parent="cleaning_screen/objects"]
+position = Vector2(-1, 16)
+texture = ExtResource("2_fjci6")
+hframes = 11
+vframes = 10
+frame = 33
+
+[node name="trashcan" type="AnimatedSprite2D" parent="cleaning_screen/objects"]
+sprite_frames = SubResource("SpriteFrames_tmub5")
+animation = &"closed"
+
+[node name="catch_sprite" type="Sprite2D" parent="cleaning_screen"]
+position = Vector2(20, 22)
+texture = ExtResource("3_vq26d")
+hframes = 4
+vframes = 4

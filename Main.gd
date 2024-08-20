@@ -3,12 +3,16 @@ extends Node2D
 @onready var transition_sound = $Camera/transition_sound
 
 const STARTING = preload("res://Scenes/fishing/starting.tscn")
+const OPTIONS = preload("res://Scenes/options/options.tscn")
 
 const START_FISHING = preload("res://Scenes/fishing/start_fishing.tscn")
 const FISHING = preload("res://Scenes/fishing/Fishing.tscn")
 
 const SPEED_UP = preload("res://Scenes/fishing/speed_up.tscn")
 const GAME_OVER = preload("res://Scenes/fishing/game_over.tscn")
+
+const BONUS = preload("res://Scenes/bonus/bonus.tscn")
+const BONUS_FEATURES = preload("res://Scenes/bonus/bonus_features.tscn")
 
 func _ready():
 	SignalBus.gameover_scene.connect(_gameover_scene)
@@ -50,7 +54,28 @@ func _progress_scene(progress: int):
 			get_tree().get_root().get_node("Main").get_child(1).queue_free()
 			var starting_tmp = STARTING.instantiate()
 			add_child(starting_tmp)
-	
+		6:
+			transition_sound.play()
+			get_tree().get_root().get_node("Main").get_child(1).queue_free()
+			var bonus_tmp = BONUS.instantiate()
+			add_child(bonus_tmp)
+		7:
+			#Bonus Features
+			transition_sound.play()
+			get_tree().get_root().get_node("Main").get_child(1).queue_free()
+			var bonus_tmp = BONUS_FEATURES.instantiate()
+			add_child(bonus_tmp)
+			pass
+		8:
+			#Catalogue
+			pass
+		9:
+			#Options
+			transition_sound.play()
+			get_tree().get_root().get_node("Main").get_child(1).queue_free()
+			var options_tmp = OPTIONS.instantiate()
+			add_child(options_tmp)
+			pass
 	pass
 	
 func _gameover_scene():

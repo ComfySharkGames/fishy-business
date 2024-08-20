@@ -3,15 +3,21 @@ extends Node2D
 @onready var score_label = $gameover_screen/score_label
 @onready var gameover_sound = $gameover_sound
 @onready var select_sound = $select_sound
+@onready var new_hiscore_unlock = $new_hiscore_unlock
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	gameover_sound.play()
 	score_label.text = str(Global.score)
-	pass # Replace with function body.
+	
+	if(Global.score > Global.high_score):
+		Global.high_score = Global.score
+		new_hiscore_unlock.visible = true
+		new_hiscore_unlock.play("default")
+		
+	Global.reset_all()
+	
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
@@ -20,5 +26,9 @@ func _on_mainmenu_btn_button_down():
 	pass 
 	
 func _on_mainmenu_btn_button_up():
-	SignalBus.progress_scene.emit(5)
+	if(Global.high_score >= Global.bonus_req_points and !Global.unlocked_bonus):
+		Global.unlocked_bonus = true
+		SignalBus.progress_scene.emit(6)
+	else:
+		SignalBus.progress_scene.emit(5)
 	pass 

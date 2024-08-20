@@ -24,6 +24,7 @@ SignalBus="*res://SignalBus.gd"
 
 window/size/viewport_width=64
 window/size/viewport_height=64
+window/size/resizable=false
 window/size/window_width_override=800
 window/size/window_height_override=800
 window/stretch/mode="viewport"

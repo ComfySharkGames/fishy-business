@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var transition_sound = $Camera/transition_sound
 
+const SPLASH_LOGO = preload("res://Scenes/splash_logo.tscn")
 const STARTING = preload("res://Scenes/fishing/starting.tscn")
 const OPTIONS = preload("res://Scenes/options/options.tscn")
 const HOWTO = preload("res://Scenes/howto/howto.tscn")
@@ -21,8 +22,8 @@ const CATALOGUE = preload("res://Scenes/catalogue/catalogue.tscn")
 func _ready():
 	SignalBus.gameover_scene.connect(_gameover_scene)
 	SignalBus.progress_scene.connect(_progress_scene)
-	var starting_tmp = STARTING.instantiate()
-	add_child(starting_tmp)
+	var splash_tmp = SPLASH_LOGO.instantiate()
+	add_child(splash_tmp)
 	pass
 
 func _process(delta):

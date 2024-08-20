@@ -17,6 +17,7 @@ extends Node2D
 @onready var waiting_sound = $waiting_sound
 @onready var failure_timer = $failure_timer
 @onready var break_sound = $break_sound
+@onready var fish_catch = $catch_window/Control/fish_catch
 
 const DOWN_ARROW = preload("res://Scenes/arrow_keys/down_arrow.tscn")
 const LEFT_ARROW = preload("res://Scenes/arrow_keys/left_arrow.tscn")
@@ -24,7 +25,6 @@ const RIGHT_ARROW = preload("res://Scenes/arrow_keys/right_arrow.tscn")
 const UP_ARROW = preload("res://Scenes/arrow_keys/up_arrow.tscn")
 
 var key_amount: int = 2
-
 var wait_count: int = 0
 var catching: bool = false
 var success: bool = false
@@ -141,6 +141,11 @@ func fail_event():
 
 func succeed_event():
 	get_fish_sound.play()
+	
+	var fish = fish_catch.frame
+	Global.catch_array.append(fish)
+	query_catalogue(fish)
+	
 	Global.score += 1
 	catch_window.visible = true
 	left_pole.play("idle")
@@ -157,12 +162,15 @@ func _on_timer_timeout():
 		game_timer.stop()
 		fail_event()
 	
-
 func _on_success_timer_timeout():
 	SignalBus.progress_scene.emit(4)
 	pass # Replace with function body.
 
-
 func _on_failure_timer_timeout():
 	SignalBus.gameover_scene.emit()
 	pass # Replace with function body.
+
+func query_catalogue(fish: int):
+	if(!Global.catalogue_complete):
+		if(!Global.catalogue_array.has(fish)):
+			Global.catalogue_array.append(fish)

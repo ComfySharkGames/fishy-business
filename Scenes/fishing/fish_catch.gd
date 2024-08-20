@@ -3,7 +3,7 @@ extends Sprite2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	randCatch()
+	#randCatch()
 	pass # Replace with function body.
 
 
@@ -12,4 +12,4 @@ func _process(delta):
 	pass
 
 func randCatch():
-	self.frame = randi() % 16
+	self.frame = randi() % 15

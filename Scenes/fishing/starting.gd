@@ -17,7 +17,7 @@ func _on_start_btn_button_up():
 	pass 
 
 func _on_howtoplay_btn_button_up():
-	#SignalBus.progress_scene.emit(8)
+	SignalBus.progress_scene.emit(3)
 	pass
 
 func _on_howtoplay_btn_button_down():

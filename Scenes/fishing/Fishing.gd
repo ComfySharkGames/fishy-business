@@ -24,6 +24,8 @@ const LEFT_ARROW = preload("res://Scenes/arrow_keys/left_arrow.tscn")
 const RIGHT_ARROW = preload("res://Scenes/arrow_keys/right_arrow.tscn")
 const UP_ARROW = preload("res://Scenes/arrow_keys/up_arrow.tscn")
 
+var fish_amount: int = 0
+var catch_amount: int = 1
 var key_amount: int = 2
 var wait_count: int = 0
 var catching: bool = false
@@ -38,14 +40,16 @@ func _ready():
 	left_pole.play("fishing")
 	right_pole.play("fishing")
 	alert_img.play("waiting")
+	catch_amount = 1 + Global.round
 	pass
 
 func _input(event):
 	pass
 
 func _process(delta):
-	if(!catching):
+	if(!catching and !success):
 		if(wait_count >= 1):
+			catch_window.visible = false
 			trigger_bite()
 			progress_bar.visible = true
 			game_timer.start()
@@ -65,6 +69,8 @@ func trigger_bite():
 	right_pole.play("catching")
 	catch_sound.play()
 	
+	#choose fish
+	fish_catch.frame = randi() % 15
 	#generate key list
 	key_amount = 2 + Global.round
 	var random = RandomNumberGenerator.new()
@@ -89,7 +95,6 @@ func trigger_bite():
 	
 func check_keypress():
 	if(key_array.is_empty()):
-		success = true
 		succeed_event()
 	
 	if(Input.is_anything_pressed()):
@@ -145,15 +150,24 @@ func succeed_event():
 	var fish = fish_catch.frame
 	Global.catch_array.append(fish)
 	query_catalogue(fish)
-	
+	game_timer.stop()
+	progress_bar.visible = false
+	catching = false
+	fish_amount += 1
 	Global.score += 1
 	catch_window.visible = true
 	left_pole.play("idle")
 	right_pole.play("idle")
 	alert_img.play("idle")
-	game_timer.stop()
-	progress_bar.visible = false
-	success_timer.start()
+	
+	if(fish_amount >= catch_amount):
+		success = true
+		success_timer.start()
+	else:
+		left_pole.play("fishing")
+		right_pole.play("fishing")
+		wait_count = 0
+		alert_img.play("waiting")
 	pass
 
 func _on_timer_timeout():
@@ -163,7 +177,7 @@ func _on_timer_timeout():
 		fail_event()
 	
 func _on_success_timer_timeout():
-	SignalBus.progress_scene.emit(4)
+	SignalBus.progress_scene.emit(2)
 	pass # Replace with function body.
 
 func _on_failure_timer_timeout():

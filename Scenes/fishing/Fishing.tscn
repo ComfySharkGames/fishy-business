@@ -378,8 +378,9 @@ frame_progress = 0.404643
 
 [node name="catch_window" type="TextureRect" parent="."]
 visible = false
+offset_top = -1.0
 offset_right = 64.0
-offset_bottom = 64.0
+offset_bottom = 63.0
 texture = ExtResource("3_8ltwp")
 
 [node name="Control" type="Control" parent="catch_window"]
@@ -413,9 +414,9 @@ offset_bottom = 56.0
 theme_override_constants/outline_size = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_v3kw6")
 theme_override_styles/fill = SubResource("StyleBoxFlat_kc1yg")
-max_value = 10.0
+max_value = 5.0
 step = 1.0
-value = 10.0
+value = 5.0
 show_percentage = false
 
 [node name="game_timer" type="Timer" parent="ProgressBar"]

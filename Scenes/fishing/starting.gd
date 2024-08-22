@@ -2,10 +2,13 @@ extends Node2D
 
 @onready var select_sound = $select_sound
 @onready var catalogue_btn = $catalogue_btn
+@onready var start_btn = $start_btn
 
 func _ready():
 	if(Global.unlocked_bonus):
 		catalogue_btn.visible = true
+		catalogue_btn.disabled = false
+	start_btn.grab_focus()
 	pass
 
 func _on_option_btn_button_up():

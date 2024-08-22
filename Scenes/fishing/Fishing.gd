@@ -28,11 +28,15 @@ var fish_amount: int = 0
 var catch_amount: int = 1
 var key_amount: int = 2
 var wait_count: int = 0
+var wait_req: int = 1
 var catching: bool = false
 var success: bool = false
 var key_array: Array[int] = []
 var pressed_array: Array[int] = []
 var key_list_node: HBoxContainer
+var catch_timelimit_min: int = 2
+var catch_timelimit_max: int = 10
+var time_reducer_rounds: int = 3
 
 func _ready():
 	background.play("default")
@@ -41,16 +45,28 @@ func _ready():
 	right_pole.play("fishing")
 	alert_img.play("waiting")
 	catch_amount = 1 + Global.round
+	var time_reducer = floori(Global.round/time_reducer_rounds)
+	if(time_reducer <= catch_timelimit_min):
+		progress_bar.max_value = catch_timelimit_max - time_reducer
+		progress_bar.value = progress_bar.max_value
+	else:
+		progress_bar.max_value = catch_timelimit_min
+		progress_bar.value = progress_bar.max_value
 	pass
 
 func _input(event):
+	if(event.is_action_pressed("skip")):
+		succeed_event()
 	pass
 
 func _process(delta):
 	if(!catching and !success):
-		if(wait_count >= 1):
+		if(wait_count >= wait_req):
+			if(wait_req == 1):
+				wait_req = 2
 			catch_window.visible = false
 			trigger_bite()
+			progress_bar.value = progress_bar.max_value
 			progress_bar.visible = true
 			game_timer.start()
 			catching = true
@@ -72,7 +88,7 @@ func trigger_bite():
 	#choose fish
 	fish_catch.frame = randi() % 15
 	#generate key list
-	key_amount = 2 + Global.round
+	key_amount = 2 + (floori(Global.round/2))
 	var random = RandomNumberGenerator.new()
 	key_list_node = get_node("key_container")
 	random.randomize()
@@ -101,6 +117,9 @@ func check_keypress():
 		if(Input.is_action_just_pressed("left")):
 			if(key_array[0] == 1):
 				key_array.pop_front()
+				if(key_list_node.get_child_count() > 2):
+					var tween = create_tween()
+					tween.tween_property(key_list_node.get_child(1),"position",key_list_node.get_child(0).position,0.1)
 				key_list_node.get_child(0).queue_free()
 				key_hit_sound.play()
 			else:
@@ -110,6 +129,9 @@ func check_keypress():
 		if(Input.is_action_just_pressed("up")):
 			if(key_array[0] == 2):
 				key_array.pop_front()
+				if(key_list_node.get_child_count() > 2):
+					var tween = create_tween()
+					tween.tween_property(key_list_node.get_child(1),"position",key_list_node.get_child(0).position,0.1)
 				key_list_node.get_child(0).queue_free()
 				key_hit_sound.play()
 			else:
@@ -119,6 +141,9 @@ func check_keypress():
 		if(Input.is_action_just_pressed("down")):
 			if(key_array[0] == 3):
 				key_array.pop_front()
+				if(key_list_node.get_child_count() > 2):
+					var tween = create_tween()
+					tween.tween_property(key_list_node.get_child(1),"position",key_list_node.get_child(0).position,0.1)
 				key_list_node.get_child(0).queue_free()
 				key_hit_sound.play()
 			else:
@@ -128,6 +153,9 @@ func check_keypress():
 		if(Input.is_action_just_pressed("right")):
 			if(key_array[0] == 4):
 				key_array.pop_front()
+				if(key_list_node.get_child_count() > 2):
+					var tween = create_tween()
+					tween.tween_property(key_list_node.get_child(1),"position",key_list_node.get_child(0).position,0.1)
 				key_list_node.get_child(0).queue_free()
 				key_hit_sound.play()
 			else:

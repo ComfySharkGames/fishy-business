@@ -1,10 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://ncg1xr5s5mch"]
+[gd_scene load_steps=22 format=3 uid="uid://ncg1xr5s5mch"]
 
 [ext_resource type="FontFile" uid="uid://bok1it5sq2e4t" path="res://Art/UI/retro-blocky.ttf" id="1_8fxym"]
 [ext_resource type="Script" path="res://Scenes/options/options.gd" id="1_loeko"]
 [ext_resource type="Texture2D" uid="uid://bgbvvnkllbswe" path="res://Art/UI/options/grabber_big.png" id="3_lprrn"]
+[ext_resource type="Texture2D" uid="uid://ch84hrfe6c3fw" path="res://Art/UI/options/grabber_highlight.png" id="3_so3sc"]
 [ext_resource type="Texture2D" uid="uid://bqi4wt78irwck" path="res://Art/UI/options/grabber.png" id="3_tyxoc"]
 [ext_resource type="Texture2D" uid="uid://ctvg5s65rf3w3" path="res://Art/UI/options/okay_btn.png" id="5_y1ini"]
+[ext_resource type="Texture2D" uid="uid://b3xqwvm4o1pye" path="res://Art/UI/selected_16.png" id="6_dwt8l"]
 [ext_resource type="AudioStream" uid="uid://bq3cyf0al626c" path="res://Scenes/fishing/sfx/select.wav" id="6_wmpv7"]
 [ext_resource type="Texture2D" uid="uid://dfw2dwyprmrmq" path="res://Art/UI/left_arrow.png" id="7_uv2g7"]
 [ext_resource type="Texture2D" uid="uid://v5fq06ptaunq" path="res://Art/UI/buttons.png" id="8_bk5ug"]
@@ -31,7 +33,8 @@ region_rect = Rect2(16, 0, 16, 16)
 texture = ExtResource("5_y1ini")
 region_rect = Rect2(16, 0, 16, 16)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oy2wd"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bbf14"]
+texture = ExtResource("6_dwt8l")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h6jcp"]
 texture = ExtResource("7_uv2g7")
@@ -44,7 +47,8 @@ region_rect = Rect2(64, 0, 16, 16)
 texture = ExtResource("8_bk5ug")
 region_rect = Rect2(64, 0, 16, 16)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1lhrt"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lccyi"]
+texture = ExtResource("6_dwt8l")
 
 [node name="Options" type="Node2D"]
 script = ExtResource("1_loeko")
@@ -59,10 +63,11 @@ offset_left = 3.0
 offset_top = 11.0
 offset_right = 60.0
 offset_bottom = 19.0
+focus_neighbor_bottom = NodePath("../Button")
 theme_override_constants/center_grabber = 1
 theme_override_constants/grabber_offset = -1
 theme_override_icons/grabber = ExtResource("3_lprrn")
-theme_override_icons/grabber_highlight = ExtResource("3_lprrn")
+theme_override_icons/grabber_highlight = ExtResource("3_so3sc")
 theme_override_icons/grabber_disabled = ExtResource("3_lprrn")
 theme_override_icons/tick = ExtResource("3_tyxoc")
 theme_override_styles/slider = SubResource("StyleBoxLine_wkf8a")
@@ -99,24 +104,31 @@ offset_left = 48.0
 offset_top = 48.0
 offset_right = 64.0
 offset_bottom = 64.0
+focus_neighbor_left = NodePath("../back_btn")
+focus_neighbor_top = NodePath("../res_slider")
+focus_next = NodePath(".")
 theme_override_styles/normal = SubResource("StyleBoxTexture_j35nu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_lxqpv")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_f42tu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_oy2wd")
+theme_override_styles/focus = SubResource("StyleBoxTexture_bbf14")
 
 [node name="back_btn" type="Button" parent="."]
 offset_top = 48.0
 offset_right = 16.0
 offset_bottom = 64.0
+focus_neighbor_top = NodePath("../res_slider")
+focus_neighbor_right = NodePath("../Button")
+focus_next = NodePath("../Button")
 theme_override_styles/normal = SubResource("StyleBoxTexture_h6jcp")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ayx0e")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_1rnrs")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_1lhrt")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lccyi")
 
 [node name="select_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_wmpv7")
 
 [connection signal="drag_ended" from="res_slider" to="." method="_on_res_slider_drag_ended"]
+[connection signal="value_changed" from="res_slider" to="." method="_on_res_slider_value_changed"]
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
 [connection signal="button_down" from="back_btn" to="." method="_on_back_btn_button_down"]

@@ -28,6 +28,9 @@ const UP_ARROW = preload("res://Scenes/arrow_keys/up_arrow.tscn")
 @onready var cooler_sound = $cooler_sound
 @onready var success_sound = $success_sound
 @onready var fishspawn_sound = $fishspawn_sound
+@onready var ocean_splash = $cleaning_screen/objects/ocean_slot/ocean_splash
+@onready var ocean_slot = $cleaning_screen/objects/ocean_slot
+@onready var splash_timer = $cleaning_screen/objects/ocean_slot/ocean_splash/splash_timer
 
 var catch_array: Array[int] = []
 var catch_type: String = ""
@@ -58,6 +61,7 @@ func _on_wait_timer_timeout():
 	pass
 
 func spawn_next_fish():
+	catch_sprite.position = wheelbarrow_slot.position
 	catch_sprite.visible = true
 	cleaning = true
 	fishspawn_sound.play()
@@ -94,7 +98,7 @@ func process_catchable():
 				cleaning_steps.pop_front()
 				key_list_node.get_child(0).queue_free()
 				key_hit_sound.play()
-				catch_sprite.position = sink_slot.position
+				move_catch(catch_sprite,sink_slot)
 				sink_sound.play()
 			else:
 				fail_event()
@@ -106,7 +110,7 @@ func process_catchable():
 				key_list_node.get_child(0).queue_free()
 				key_hit_sound.play()
 				catch_sprite.frame = 15
-				catch_sprite.position = table_slot.position
+				move_catch(catch_sprite,table_slot)
 				table_sound.play()
 			else:
 				fail_event()
@@ -117,7 +121,7 @@ func process_catchable():
 				cleaning_steps.pop_front()
 				key_list_node.get_child(0).queue_free()
 				key_hit_sound.play()
-				catch_sprite.position = cooler_slot.position
+				move_catch(catch_sprite,cooler_slot)
 				cooler_sound.play()
 			else:
 				fail_event()
@@ -129,7 +133,7 @@ func process_catchable():
 				key_list_node.get_child(0).queue_free()
 				key_hit_sound.play()
 				trashcan.play("open")
-				catch_sprite.position = trashcan_slot.position
+				move_catch(catch_sprite,trashcan_slot)
 				trash_sound.play()
 			else:
 				fail_event()
@@ -143,6 +147,10 @@ func reset_for_next_fish():
 	catch_array.pop_front()
 	wait_timer.start()
 	pass
+
+func move_catch(fish: Sprite2D, slot: Node2D):
+	var tween = create_tween()
+	tween.tween_property(fish,"position",slot.position,.1)
 
 func load_keylist(steps: Array[String]):
 	key_list_node = get_node("key_container")
@@ -168,10 +176,9 @@ func success_event():
 	pass
 
 func fail_event():
-	up_arrow.visible = false
-	down_arrow.visible = false
-	left_arrow.visible = false
-	right_arrow.visible = false
+	key_list_node.visible = false
+	splash_timer.start()
+	move_catch(catch_sprite,ocean_slot)
 	cleaning = false
 	break_sound.play()
 	fail_timer.start()
@@ -181,7 +188,11 @@ func _on_fail_timer_timeout():
 	SignalBus.gameover_scene.emit()
 	pass 
 
-
 func _on_success_timer_timeout():
 	SignalBus.progress_scene.emit(4)
+	pass # Replace with function body.
+
+func _on_splash_timer_timeout():
+	catch_sprite.visible = false
+	ocean_splash.play("splash")
 	pass # Replace with function body.

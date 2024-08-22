@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cwep8p6d75vm3"]
+[gd_scene load_steps=53 format=3 uid="uid://cwep8p6d75vm3"]
 
 [ext_resource type="Script" path="res://Scenes/catalogue/catalogue.gd" id="1_7bnl7"]
 [ext_resource type="Texture2D" uid="uid://7l0xl8fmfu0v" path="res://Art/Items/catchables_catalogue_bg.png" id="1_lmy6i"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://blfx6kiky74kq" path="res://Scenes/catalogue/seaweed.png" id="17_kdhm7"]
 [ext_resource type="Texture2D" uid="uid://cu6alxiswlcen" path="res://Scenes/catalogue/anchor.png" id="18_r4dd7"]
 [ext_resource type="Texture2D" uid="uid://b8d55uvceih4u" path="res://Scenes/catalogue/soda.png" id="19_m5gsf"]
+[ext_resource type="Texture2D" uid="uid://b3xqwvm4o1pye" path="res://Art/UI/selected_16.png" id="20_isikx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fyoko"]
 
@@ -26,7 +27,8 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xg3my"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k8ni6"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_riarh"]
+texture = ExtResource("20_isikx")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p2v1w"]
 
@@ -34,7 +36,8 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_abkaw"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dt0fj"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8nm18"]
+texture = ExtResource("20_isikx")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hrcir"]
 
@@ -42,7 +45,35 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mncqd"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jqd7m"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fm2vg"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q47rc"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6s158"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_586iy"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mdl67"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e7boi"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_phk04"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gm7by"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fcfyp"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xvbue"]
+texture = ExtResource("20_isikx")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7dx14"]
 texture = ExtResource("2_e6bl1")
@@ -57,7 +88,17 @@ region_rect = Rect2(64, 0, 16, 16)
 texture = ExtResource("2_e6bl1")
 region_rect = Rect2(64, 0, 16, 16)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s47dv"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_21te5"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_57vfj"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_abu07"]
+texture = ExtResource("20_isikx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nki7c"]
+texture = ExtResource("20_isikx")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tpdln"]
 texture = ExtResource("2_e6bl1")
@@ -67,7 +108,8 @@ region_rect = Rect2(0, 0, 16, 16)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hqqff"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bxly6"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_142le"]
+texture = ExtResource("20_isikx")
 
 [node name="catalogue" type="Node2D"]
 script = ExtResource("1_7bnl7")
@@ -86,130 +128,177 @@ columns = 4
 [node name="sardine" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_right = NodePath("../lionfish")
+focus_neighbor_bottom = NodePath("../tuna")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_fyoko")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_7wynu")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_xg3my")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_k8ni6")
+theme_override_styles/focus = SubResource("StyleBoxTexture_riarh")
 
 [node name="lionfish" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../sardine")
+focus_neighbor_right = NodePath("../shrimp")
+focus_neighbor_bottom = NodePath("../shark")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_p2v1w")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_igy38")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_abkaw")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_dt0fj")
+theme_override_styles/focus = SubResource("StyleBoxTexture_8nm18")
 
 [node name="shrimp" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../lionfish")
+focus_neighbor_right = NodePath("../squid")
+focus_neighbor_bottom = NodePath("../seahorse")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_fm2vg")
 
 [node name="squid" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../shrimp")
+focus_neighbor_bottom = NodePath("../mahimahi")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_q47rc")
 
 [node name="tuna" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_top = NodePath("../sardine")
+focus_neighbor_right = NodePath("../shark")
+focus_neighbor_bottom = NodePath("../starfish")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_6s158")
 
 [node name="shark" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../tuna")
+focus_neighbor_top = NodePath("../lionfish")
+focus_neighbor_right = NodePath("../seahorse")
+focus_neighbor_bottom = NodePath("../scallop")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_586iy")
 
 [node name="seahorse" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../shark")
+focus_neighbor_top = NodePath("../shrimp")
+focus_neighbor_right = NodePath("../mahimahi")
+focus_neighbor_bottom = NodePath("../skeleton")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_mdl67")
 
 [node name="mahimahi" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../seahorse")
+focus_neighbor_top = NodePath("../squid")
+focus_neighbor_bottom = NodePath("../boot")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_e7boi")
 
 [node name="starfish" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_top = NodePath("../tuna")
+focus_neighbor_right = NodePath("../scallop")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_phk04")
 
 [node name="scallop" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../starfish")
+focus_neighbor_top = NodePath("../shark")
+focus_neighbor_right = NodePath("../skeleton")
+focus_neighbor_bottom = NodePath("../seaweed")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_gm7by")
 
 [node name="skeleton" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../scallop")
+focus_neighbor_top = NodePath("../seahorse")
+focus_neighbor_right = NodePath("../boot")
+focus_neighbor_bottom = NodePath("../anchor")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_fcfyp")
 
 [node name="boot" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../skeleton")
+focus_neighbor_top = NodePath("../mahimahi")
+focus_neighbor_bottom = NodePath("../can")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_xvbue")
 
 [node name="back_btn" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_top = NodePath("../starfish")
+focus_neighbor_right = NodePath("../seaweed")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7dx14")
 theme_override_styles/hover = SubResource("StyleBoxTexture_v1cuq")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_dgyk3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_s47dv")
+theme_override_styles/focus = SubResource("StyleBoxTexture_21te5")
 
 [node name="seaweed" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../back_btn")
+focus_neighbor_top = NodePath("../scallop")
+focus_neighbor_right = NodePath("../anchor")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_57vfj")
 
 [node name="anchor" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../seaweed")
+focus_neighbor_top = NodePath("../skeleton")
+focus_neighbor_right = NodePath("../can")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_abu07")
 
 [node name="can" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
+focus_neighbor_left = NodePath("../anchor")
+focus_neighbor_top = NodePath("../boot")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_hrcir")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hkhrl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_mncqd")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jqd7m")
+theme_override_styles/focus = SubResource("StyleBoxTexture_nki7c")
 
 [node name="select_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_hfmfw")
@@ -323,14 +412,13 @@ texture = ExtResource("19_m5gsf")
 
 [node name="back_btn_page" type="Button" parent="Pages"]
 visible = false
-offset_left = 24.0
-offset_top = 49.0
-offset_right = 40.0
-offset_bottom = 65.0
+offset_top = 48.0
+offset_right = 16.0
+offset_bottom = 64.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_tpdln")
 theme_override_styles/hover = SubResource("StyleBoxTexture_g4ms7")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_hqqff")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_bxly6")
+theme_override_styles/focus = SubResource("StyleBoxTexture_142le")
 
 [connection signal="button_down" from="GridContainer/sardine" to="." method="_on_sardine_button_down"]
 [connection signal="button_up" from="GridContainer/sardine" to="." method="_on_sardine_button_up"]

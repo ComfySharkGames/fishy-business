@@ -4,10 +4,12 @@ extends Node2D
 @onready var gameover_sound = $gameover_sound
 @onready var select_sound = $select_sound
 @onready var new_hiscore_unlock = $new_hiscore_unlock
+@onready var mainmenu_btn = $mainmenu_btn
 
 func _ready():
 	gameover_sound.play()
 	score_label.text = str(Global.score)
+	mainmenu_btn.grab_focus()
 	
 	if(Global.score > Global.high_score):
 		Global.high_score = Global.score

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cp7dvxcg5l23x"]
+[gd_scene load_steps=20 format=3 uid="uid://cp7dvxcg5l23x"]
 
 [ext_resource type="Script" path="res://Scenes/fishing/game_over.gd" id="1_lsla7"]
 [ext_resource type="Texture2D" uid="uid://ddauyfbbtcewf" path="res://Art/Scenes/gameover/gameover.png" id="1_u4ac7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b3yugv8fgy2ho" path="res://Art/UI/mainmenu_up.png" id="5_3tmty"]
 [ext_resource type="Texture2D" uid="uid://b8lyrvlwiftld" path="res://Art/UI/mainmenu_down.png" id="6_q8sww"]
 [ext_resource type="AudioStream" uid="uid://bq3cyf0al626c" path="res://Scenes/fishing/sfx/select.wav" id="7_7n2cu"]
+[ext_resource type="Texture2D" uid="uid://4c4ru3cxgqqx" path="res://Art/UI/selected_64.png" id="7_bhva1"]
 [ext_resource type="Texture2D" uid="uid://cotcvl7n2wk80" path="res://Art/Scenes/gameover/new_hiscore.png" id="8_m7fnd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_a3lnm"]
@@ -21,7 +22,9 @@ texture = ExtResource("5_3tmty")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hctsk"]
 texture = ExtResource("6_q8sww")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3gqxk"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gt8mw"]
+texture = ExtResource("7_bhva1")
+expand_margin_top = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3edue"]
 atlas = ExtResource("8_m7fnd")
@@ -94,7 +97,7 @@ offset_right = 64.0
 offset_bottom = 64.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_270j3")
 theme_override_styles/hover = SubResource("StyleBoxTexture_hctsk")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_3gqxk")
+theme_override_styles/focus = SubResource("StyleBoxTexture_gt8mw")
 
 [node name="select_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_7n2cu")

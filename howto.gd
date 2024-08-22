@@ -1,6 +1,10 @@
 extends Node2D
 
 @onready var select_sound = $select_sound
+@onready var back_btn = $back_btn
+
+func _ready():
+	back_btn.grab_focus()
 
 func _on_back_btn_button_up():
 	SignalBus.progress_scene.emit(5)
